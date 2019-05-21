@@ -1,0 +1,16 @@
+{
+  "name": "davare",
+  "version": "1.0.0",
+  "description": "Simple Discord Bot made with Discord.js",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js debug"
+  },
+  "keywords": [
+    "discord.js",
+    "davare",
+    "discord"
+  ],
+  "author": "Marcel Heim",
+  "license": "MIT"
+}
