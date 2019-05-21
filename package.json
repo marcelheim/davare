@@ -1,6 +1,6 @@
 {
   "name": "davare",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "Simple Discord Bot made with Discord.js",
   "main": "main.js",
   "dependencies": {
