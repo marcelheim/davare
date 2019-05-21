@@ -7,6 +7,7 @@ const token = JSON.parse(fs.readFileSync('./src/token.json', 'utf8'));
 let client = new Discord.Client();
 
 const cmdmap = {
+    clear: commands.cmd_clear,
     say: commands.cmd_say,
     sudo: cmd_sudo
 };
@@ -19,8 +20,8 @@ function cmd_sudo(msg, args, sudo) {
         sudo = true;
     }
     console.log(`User: "${msg.member.displayName}", ID: "${msg.member.id}", Sudo: "${sudo}", Invoke: "${invoke}", Arguments: "${arguments}"`);
-    if(invoke in cmdmap) cmdmap[invoke](msg, arguments, sudo);
-    return true;
+    if (invoke in cmdmap) cmdmap[invoke](msg, arguments, sudo);
+    return sudo;
 }
 
 client.on('ready', () => {
