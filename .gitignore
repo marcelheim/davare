@@ -77,5 +77,4 @@ typings/
 
 # Idea + token
 .idea/
-src/token.json
 package-lock.json
