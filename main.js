@@ -8,6 +8,7 @@ let client = new Discord.Client();
 
 const cmdmap = {
     clear: commands.cmd_clear,
+    reddit: commands.cmd_reddit,
     say: commands.cmd_say,
     sudo: cmd_sudo
 };
