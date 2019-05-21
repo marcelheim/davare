@@ -8,6 +8,7 @@ module.exports = {
         if (checkPermissions(["MANAGE_MESSAGES"], msg, sudo)) {
             if (arguments[0] > 0) {
                 let count = parseInt(arguments[0]) + 1;
+                count = count > 100 ? 100 : count;
                 msg.channel.fetchMessages({limit: count})
                     .then(function (list) {
                         if (sudo) list.sweep(message => message.id === msg.id);
