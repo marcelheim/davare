@@ -74,3 +74,8 @@ typings/
 
 # FuseBox cache
 .fusebox/
+
+# Idea + token
+.idea/
+src/token.json
+package-lock.json

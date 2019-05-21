@@ -1,10 +1,15 @@
 {
   "name": "davare",
-  "version": "1.0.0",
+  "version": "0.1",
   "description": "Simple Discord Bot made with Discord.js",
   "main": "main.js",
+  "dependencies": {
+    "discord.js": "^11.5.0",
+    "node-fetch": "^2.6.0"
+  },
   "scripts": {
-    "test": "node main.js debug"
+    "test": "node main.js debug",
+    "start": "node main.js"
   },
   "keywords": [
     "discord.js",
@@ -12,5 +17,9 @@
     "discord"
   ],
   "author": "Marcel Heim",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "GitHub",
+    "url": "https://www.github.com/marcelheim/davare"
+  }
 }
