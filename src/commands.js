@@ -8,12 +8,12 @@ module.exports = {
     cmd_help: async function (msg, arguments, sudo) {
         if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
             let embed = config.help;
-            msg.channel.send({embed});
+            msg.channel.send({embed}).catch(error => console.error(error));
         }
     },
     cmd_say: async function (msg, arguments, sudo) {
         if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
-            if (arguments.length > 0) msg.channel.send(arguments.join(' '));
+            if (arguments.length > 0) msg.channel.send(arguments.join(' ')).catch(console.error);
         }
     },
     cmd_clear: async function (msg, arguments, sudo) {
@@ -26,7 +26,11 @@ module.exports = {
                         if (sudo) list.sweep(message => message.id === msg.id);
                         list.forEach(msg => msg.delete(0));
                     })
-                    .catch(console.error);
+                    .catch(error => {
+                        msg.channel.send("Error :slight_frown:")
+                            .then(msg => msg.delete(1000))
+                            .catch(console.error);
+                    });
             }
         }
     },
@@ -114,7 +118,7 @@ module.exports = {
 
 function checkPermissions(required, msg, sudo) {
     if (sudo) return true;
-    else if (msg.member.hasPermission(required.permissions)) return true;
+    else if (msg.member.hasPermission(required.permissions).catch(console.error)) return true;
     else console.log(`ERROR: Permission - User: "${msg.member.displayName}" ID: "${msg.member.id}"`);
 }
 
