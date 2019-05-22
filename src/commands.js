@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     cmd_clear: async function (msg, arguments, sudo) {
-        if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
+        if (checkPermissions({permissions: ["MANAGE_MESSAGES"]}, msg, sudo)) {
             if (parseInt(arguments[0]) > 0) {
                 let count = parseInt(arguments[0]) + 1;
                 count = count > 100 ? 100 : count;
