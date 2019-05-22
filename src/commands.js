@@ -1,6 +1,16 @@
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
+const fs = require('fs');
+
+const config = JSON.parse(fs.readFileSync('./src/config.json', 'utf8'));
+
 module.exports = {
+    cmd_help: async function (msg, arguments, sudo) {
+        if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
+            let embed = config.help;
+            msg.channel.send({embed});
+        }
+    },
     cmd_say: async function (msg, arguments, sudo) {
         if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
             if (arguments.length > 0) msg.channel.send(arguments.join(' '));
@@ -41,7 +51,7 @@ module.exports = {
             }
         }
     },
-    cmd_dm_reddit: async function (msg, arguments, sudo) {
+    cmd_dmReddit: async function (msg, arguments, sudo) {
         let sortBy = "new", count = 1,
             user = msg.mentions.users.first();
         if (arguments[3]) {
@@ -55,17 +65,50 @@ module.exports = {
                 let data = await getRedditIMG(msg, {subreddit: subreddit, sortBy: sortBy});
                 if (data) for (let i = 0; i < count; i++) {
                     let rand = Math.floor(Math.random() * (data.length - 1));
-                    member.send(`${data[rand].title} - ${data[rand].subreddit}\n${data[rand].link}`)
-                        .catch(error => console.error(error));
+                    await member.send(`${data[rand].title} - ${data[rand].subreddit}\n${data[rand].link}`)
+                        .catch(error => {
+                            console.error(error);
+                            msg.channel.send(`Error sending messages to ${member.displayName} :slight_frown:`)
+                                .then(msg => msg.delete(2000))
+                                .catch(error => console.error(error));
+                            i = count;
+                        });
                 }
                 else msg.channel.send("Error :slight_frown:")
                     .then(msg => msg.delete(1000))
                     .catch(error => console.error(error));
             }
-        }
-        else msg.channel.send("Error: DM not supported :slight_frown:")
+        } else msg.channel.send("Error: DM not supported :slight_frown:")
             .then(msg => msg.delete(2000))
             .catch(error => console.error(error));
+    },
+    cmd_meme: async function (msg, arguments, sudo) {
+        if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
+            let count = arguments[0] > 0 && arguments[0] < 5 ? arguments[0] : 1;
+            let data = await getRedditIMG(msg, {subreddit: "dankmemes", sortBy: "hot"});
+            if (data) for (let i = 0; i < count; i++){
+                let rand = Math.floor(Math.random() * (data.length - 1));
+                msg.channel.send(`${data[rand].title}\n${data[rand].link}`)
+                    .catch(error => console.error(error));
+            }
+            else msg.channel.send("Error :slight_frown:")
+                .then(msg => msg.delete(1000))
+                .catch(error => console.error(error));
+        }
+    },
+    cmd_nsfw: async function (msg, arguments, sudo) {
+        if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
+            let count = arguments[0] > 0 && arguments[0] < 5 ? arguments[0] : 1;
+            let data = await getRedditIMG(msg, {subreddit: "nsfw", sortBy: "hot"});
+            if (data) for (let i = 0; i < count; i++){
+                let rand = Math.floor(Math.random() * (data.length - 1));
+                msg.channel.send(`${data[rand].title}\n${data[rand].link}`)
+                    .catch(error => console.error(error));
+            }
+            else msg.channel.send("Error :slight_frown:")
+                .then(msg => msg.delete(1000))
+                .catch(error => console.error(error));
+        }
     }
 };
 
