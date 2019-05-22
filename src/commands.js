@@ -10,6 +10,7 @@ module.exports = {
             let embed = config.help;
             msg.channel.send({embed}).catch(error => console.error(error));
         }
+        return true
     },
     cmd_say: async function (msg, arguments, sudo) {
         if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
@@ -88,21 +89,21 @@ module.exports = {
     },
     cmd_meme: async function (msg, arguments, sudo) {
         if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
-            let count = arguments[0] > 0 && arguments[0] < 5 ? arguments[0] : 1;
+            let count = (arguments[0] > 0 && arguments[0] < 5) || sudo ? arguments[0] : 1;
             let data = await getRedditIMG(msg, {subreddit: "dankmemes", sortBy: "hot"});
             if (data) for (let i = 0; i < count; i++){
                 let rand = Math.floor(Math.random() * (data.length - 1));
                 msg.channel.send(`${data[rand].title}\n${data[rand].link}`)
                     .catch(error => console.error(error));
             }
-            else msg.channel.send("Error :slight_frown:")
+            else msg.channel.send("Error getting the DANKEST memes :slight_frown:")
                 .then(msg => msg.delete(1000))
                 .catch(error => console.error(error));
         }
     },
     cmd_nsfw: async function (msg, arguments, sudo) {
         if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
-            let count = arguments[0] > 0 && arguments[0] < 5 ? arguments[0] : 1;
+            let count = (arguments[0] > 0 && arguments[0] < 5) || sudo ? arguments[0] : 1;
             let data = await getRedditIMG(msg, {subreddit: "nsfw", sortBy: "hot"});
             if (data) for (let i = 0; i < count; i++){
                 let rand = Math.floor(Math.random() * (data.length - 1));
@@ -113,12 +114,44 @@ module.exports = {
                 .then(msg => msg.delete(1000))
                 .catch(error => console.error(error));
         }
+    },
+    cmd_hentai: async function(msg, arguments, sudo){
+        if (checkPermissions({permissions: ["SEND_MESSAGES"]}, msg, sudo)) {
+            let count = (arguments[0] > 0 && arguments[0] < 5) || sudo ? arguments[0] : 1;
+            let data = await getRedditIMG(msg, {subreddit: "hentai", sortBy: "hot"});
+            if (data) for (let i = 0; i < count; i++){
+                let rand = Math.floor(Math.random() * (data.length - 1));
+                msg.channel.send(`${data[rand].title}\n${data[rand].link}`)
+                    .catch(error => console.error(error));
+            }
+            else msg.channel.send("Error getting Hentais :slight_frown:")
+                .then(msg => msg.delete(1000))
+                .catch(error => console.error(error));
+        }
+    },
+    cmd_addRole: async function(msg, arguments, sudo){
+        let roleName = arguments.splice(1).join(" "),
+            user = msg.mentions.users.first();
+        if (checkPermissions(["MANAGE_ROLES"], msg, sudo) && roleName.length > 0){
+            let role = msg.guild.roles.find(x => x.name === roleName);
+                msg.guild.member(user).addRole(role).catch(console.error);
+        }
+        return true;
+    },
+    cmd_removeRole: async function(msg, arguments, sudo){
+        let roleName = arguments.splice(1).join(" "),
+            user = msg.mentions.users.first();
+        if (checkPermissions(["MANAGE_ROLES"], msg, sudo) && roleName.length > 0){
+            let role = msg.guild.roles.find(x => x.name === roleName);
+                msg.guild.member(user).removeRole(role).catch(console.error);
+        }
+        return true;
     }
 };
 
 function checkPermissions(required, msg, sudo) {
     if (sudo) return true;
-    else if (msg.member.hasPermission(required.permissions).catch(console.error)) return true;
+    else if (msg.member.hasPermission(required.permissions)) return true;
     else console.log(`ERROR: Permission - User: "${msg.member.displayName}" ID: "${msg.member.id}"`);
 }
 

@@ -16,17 +16,17 @@
     "fields": [
       {
         "name": "Command:",
-        "value": "-clear\n-dmReddit\n-reddit\n-say\n-meme\n-nsfw",
+        "value": "-clear\n-dmReddit\n-reddit\n-say\n-meme\n-nsfw\n-addRole\n-removeRole\n-hentai",
         "inline": true
       },
       {
         "name": "Options:",
-        "value": "<count>\n<@user> <subreddit> <sortby> <count>\n<subreddit> <sortby> <count>\n<text>\n<count>\n<count>",
+        "value": "<count>\n<@user> <subreddit> <sortby> <count>\n<subreddit> <sortby> <count>\n<text>\n<count>\n<count>\n<@user> <roleName>\n<@user> <roleName>\n<count>",
         "inline": true
       },
       {
         "name": "Example:",
-        "value": "-clear 5\n-dmReddit @Aether me_irl top 2\n-reddit dankmemes new 3\n-meme 2\n-nsfw 4",
+        "value": "-clear 5\n-dmReddit @Aether me_irl top 2\n-reddit dankmemes new 3\n-meme 2\n-nsfw 4\n-addRole @Aether Admin\n-removeRole @Aether Admin\n-hentai 4",
         "inline": true
       }
     ]

@@ -7,9 +7,12 @@ const token = JSON.parse(fs.readFileSync('./src/token.json', 'utf8'));
 let client = new Discord.Client();
 
 const cmdmap = {
+    addRole: commands.cmd_addRole,
+    removeRole: commands.cmd_removeRole,
     clear: commands.cmd_clear,
     dmReddit: commands.cmd_dmReddit,
     help: commands.cmd_help,
+    hentai: commands.cmd_hentai,
     meme: commands.cmd_meme,
     nsfw: commands.cmd_nsfw,
     reddit: commands.cmd_reddit,
