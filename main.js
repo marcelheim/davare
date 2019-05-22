@@ -28,6 +28,7 @@ async function cmd_sudo(msg, args, sudo) {
 
 client.on('ready', () => {
     console.log(`Logged in as "${client.user.username}" with ID: "${client.user.id}"`);
+    client.user.setActivity("S.N.O.B", { type: 'PLAYING' }).catch(error => console.error(error));
 });
 
 client.on('message', (msg) => {
