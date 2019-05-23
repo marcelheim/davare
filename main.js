@@ -3,7 +3,7 @@ const fs = require('fs');
 const commands = require('./src/commands');
 
 const config = JSON.parse(fs.readFileSync('./src/config.json', 'utf8'));
-const token = JSON.parse(fs.readFileSync('./src/token.json', 'utf8'));
+const token = process.env.DISCORD_TOKEN;
 let client = new Discord.Client();
 
 const cmdmap = {
@@ -54,4 +54,4 @@ client.on('message', (msg) => {
     }
 });
 
-client.login(token.token);
+client.login(token).catch(console.error);

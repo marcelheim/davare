@@ -83,7 +83,7 @@ module.exports = {
                     .then(msg => msg.delete(1000))
                     .catch(error => console.error(error));
             }
-        } else msg.channel.send("Error: DM not supported :slight_frown:")
+        } else msg.channel.send("Error: DM not possible :slight_frown:")
             .then(msg => msg.delete(2000))
             .catch(error => console.error(error));
     },
