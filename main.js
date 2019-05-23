@@ -23,7 +23,7 @@ const cmdmap = {
 async function cmd_sudo(msg, args, sudo) {
     let invoke = args[0],
         arguments = args.slice(1);
-    if (arguments.includes(msg.author.id)) {
+        if (arguments.includes(msg.author.id)) {
         arguments = arguments.filter(argument => argument !== msg.author.id);
         sudo = true;
     }
