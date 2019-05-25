@@ -4,12 +4,15 @@
   "description": "Simple Discord Bot made with Discord.js",
   "main": "main.js",
   "dependencies": {
+    "discord.js-commando": "^0.10.0",
     "discord.js": "^11.5.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "common-tags": "^1.8.0",
+    "sqlite": "^3.0.3",
+    "chance": "^1.0.18"
   },
   "scripts": {
-    "test": "node main.js debug",
-    "start": "node main.js"
+    "heroku": "heroku local"
   },
   "keywords": [
     "discord.js",
