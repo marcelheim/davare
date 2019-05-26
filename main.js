@@ -49,7 +49,6 @@ client
 			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
 		`);
     })
-    .on('')
 
 client.setProvider(
     sqlite.open(path.join(__dirname, 'src/config/datastore.sqlite3')).then(db => new Commando.SQLiteProvider(db))
