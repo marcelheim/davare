@@ -5,7 +5,7 @@ const sqlite = require('sqlite');
 const token = process.env.DISCORD_TOKEN;
 
 const client = new Commando.Client({
-    owner: ['361217432624300033'],
+    owner: ['361217432624300033', '201357077707227138'],
     commandPrefix: '::',
     unknownCommandResponse: false
 });
